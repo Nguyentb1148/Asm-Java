@@ -17,8 +17,10 @@ import java.text.SimpleDateFormat;
  * @author tranbaonguyen
  */
 public class SinhVienDialog extends javax.swing.JFrame {
-        SimpleDateFormat dateFormat=new SimpleDateFormat("dd/mm/yyyy");
-        SinhVienDAO dao=new SinhVienDAO();
+
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+    SinhVienDAO dao = new SinhVienDAO();
+
     /**
      * Creates new form SinhVienDialog
      */
@@ -179,6 +181,11 @@ public class SinhVienDialog extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbSinhVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbSinhVienMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbSinhVien);
         if (tbSinhVien.getColumnModel().getColumnCount() > 0) {
             tbSinhVien.getColumnModel().getColumn(4).setResizable(false);
@@ -200,15 +207,14 @@ public class SinhVienDialog extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtMaSv, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtTenSv, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTenSv, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -284,7 +290,7 @@ public class SinhVienDialog extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public  void reset(){
+    public void reset() {
         txtMaSv.setText("");
         txtTenSv.setText("");
         txtDiaChi.setText("");
@@ -292,21 +298,22 @@ public class SinhVienDialog extends javax.swing.JFrame {
         rdNam.isSelected();
     }
 
-    public  boolean validateForm(){
-        if (txtTenSv.getText().isEmpty()||txtDiaChi.getText().isEmpty()||txtMaSv.getText().isEmpty()||
-            txtNgaySinh.getText().isEmpty()){
+    public boolean validateForm() {
+        if (txtTenSv.getText().isEmpty() || txtDiaChi.getText().isEmpty() || txtMaSv.getText().isEmpty()
+                || txtNgaySinh.getText().isEmpty()) {
             return false;
         }
         return true;
     }
-    public SinhVien getModel(){
-        SinhVien sv= new SinhVien();
+
+    public SinhVien getModel() {
+        SinhVien sv = new SinhVien();
         sv.setMaSv(txtMaSv.getText());
         sv.setTenSv(txtTenSv.getText());
         sv.setDiaChi(txtDiaChi.getText());
-        boolean sex=false;//female
-        if (rdNam.isSelected()){
-            sex=true;
+        boolean sex = false;//female
+        if (rdNam.isSelected()) {
+            sex = true;
         }
         sv.setGioiTinh(sex);
         try {
@@ -316,42 +323,81 @@ public class SinhVienDialog extends javax.swing.JFrame {
         }
         return sv;
     }
-    public void fillDataTable(){
-        DefaultTableModel model=(DefaultTableModel) tbSinhVien.getModel();
+
+    public  void setModel(SinhVien sinhVien){
+        txtMaSv.setText(sinhVien.getMaSv());
+        txtTenSv.setText(sinhVien.getTenSv());
+        txtNgaySinh.setText(dateFormat.format(sinhVien.getNgaySinh()));
+        txtDiaChi.setText(sinhVien.getDiaChi());
+        if (sinhVien.isGioiTinh()){
+            rdNam.isSelected();
+        }else {
+            rdNu.isSelected();
+        }
+    }
+
+    public void fillDataTable() {
+        DefaultTableModel model = (DefaultTableModel) tbSinhVien.getModel();
         model.setRowCount(0);//clear table
-        for(SinhVien sv:dao.getAllSinhVien()){
-            Object[] rowData =new Object[5];
-            rowData[0]=sv.getMaSv();
-            rowData[1]=sv.getTenSv();
-            rowData[2]=dateFormat.format(sv.getNgaySinh());
-            rowData[3]=sv.isGioiTinh()?"Male":"Female";
-            rowData[4]=sv.getDiaChi();
+        for (SinhVien sv : dao.getAllSinhVien()) {
+            Object[] rowData = new Object[5];
+            rowData[0] = sv.getMaSv();
+            rowData[1] = sv.getTenSv();
+            rowData[2] = dateFormat.format(sv.getNgaySinh());
+            rowData[3] = sv.isGioiTinh() ? "Male" : "Female";
+            rowData[4] = sv.getDiaChi();
             model.addRow(rowData);
         }
     }
+
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         reset();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        if (validateForm()){
-            SinhVien sv=getModel();
-            if (dao.add(sv)>0){
-                JOptionPane.showMessageDialog(this,"Save Success");
+        if (validateForm()) {
+            SinhVien sv = getModel();
+            if (dao.add(sv) > 0) {
+                JOptionPane.showMessageDialog(this, "Save Success");
                 fillDataTable();
             }
-        }else {
-            JOptionPane.showMessageDialog(this,"Form shouldn't empty");
+        } else {
+            JOptionPane.showMessageDialog(this, "Form shouldn't empty");
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
+        if (validateForm()) {
+               SinhVien sinhVien=getModel();
+               if (dao.updateStudentById(sinhVien)>0){
+                   JOptionPane.showMessageDialog(this, "update Success");
+                   fillDataTable();
+               }
+        } else {
+            JOptionPane.showMessageDialog(this, "Form shouldn't empty");
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        if (txtMaSv.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this,"Input id.");
+        }else {
+            if (dao.deleteSinhVienById(txtMaSv.getText()) > 0) {
+                JOptionPane.showMessageDialog(this, "Delete Success");
+                fillDataTable();
+            }else{
+                JOptionPane.showMessageDialog(this, "Table is empty");
+            }
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void tbSinhVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSinhVienMouseClicked
+        int id =tbSinhVien.rowAtPoint(evt.getPoint());
+        String maSv= tbSinhVien.getValueAt(id,0).toString();
+        SinhVien sv=dao.getSinhVienById(maSv);
+        setModel(sv);
+
+    }//GEN-LAST:event_tbSinhVienMouseClicked
 
     private void txtMaSvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaSvActionPerformed
         // TODO add your handling code here:
@@ -368,6 +414,7 @@ public class SinhVienDialog extends javax.swing.JFrame {
     private void txtDiaChiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaChiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDiaChiActionPerformed
+
 
     /**
      * @param args the command line arguments
