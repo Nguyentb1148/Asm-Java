@@ -18,8 +18,13 @@ public class SinhVien {
         this.diaChi = diaChi;
     }
     public SinhVien(){
-
     }
+
+    public SinhVien(String maSv, String tenSv) {
+        this.maSv = maSv;
+        this.tenSv = tenSv;
+    }
+
     public String getMaSv() {
         return maSv;
     }

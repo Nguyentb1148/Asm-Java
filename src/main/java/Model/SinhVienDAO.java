@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SinhVienDAO {
-        List<SinhVien> ls=new ArrayList<>();
+        public static List<SinhVien> ls=new ArrayList<>();
+
+        public SinhVienDAO(){
+                ls.add(new SinhVien("123","nguyen"));
+                ls.add(new SinhVien("1234","nguyen2"));
+        }
         public int add(SinhVien sinhVien){
                 ls.add(sinhVien);
                 return  1;
