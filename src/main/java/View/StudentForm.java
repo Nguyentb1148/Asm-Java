@@ -4,8 +4,8 @@
  */
 package View;
 
-import Model.SinhVien;
-import Model.SinhVienDAO;
+import Model.Student;
+import Model.SinhVienList;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -16,15 +16,15 @@ import java.text.SimpleDateFormat;
  *
  * @author tranbaonguyen
  */
-public class SinhVienDialog extends javax.swing.JFrame {
+public class StudentForm extends javax.swing.JFrame {
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
-    SinhVienDAO dao = new SinhVienDAO();
+    SinhVienList sinhVienList = new SinhVienList();
 
     /**
      * Creates new form SinhVienDialog
      */
-    public SinhVienDialog() {
+    public StudentForm() {
         initComponents();
     }
 
@@ -306,30 +306,30 @@ public class SinhVienDialog extends javax.swing.JFrame {
         return true;
     }
 
-    public SinhVien getModel() {
-        SinhVien sv = new SinhVien();
-        sv.setMaSv(txtMaSv.getText());
-        sv.setTenSv(txtTenSv.getText());
-        sv.setDiaChi(txtDiaChi.getText());
+    public Student getModel() {
+        Student sv = new Student();
+        sv.setIdStudent(txtMaSv.getText());
+        sv.setNameStudent(txtTenSv.getText());
+        sv.setAddress(txtDiaChi.getText());
         boolean sex = false;//female
         if (rdNam.isSelected()) {
             sex = true;
         }
-        sv.setGioiTinh(sex);
+        sv.setSex(sex);
         try {
-            sv.setNgaySinh(dateFormat.parse(txtNgaySinh.getText()));
+            sv.setBirthday(dateFormat.parse(txtNgaySinh.getText()));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
         return sv;
     }
 
-    public  void setModel(SinhVien sinhVien){
-        txtMaSv.setText(sinhVien.getMaSv());
-        txtTenSv.setText(sinhVien.getTenSv());
-        txtNgaySinh.setText(dateFormat.format(sinhVien.getNgaySinh()));
-        txtDiaChi.setText(sinhVien.getDiaChi());
-        if (sinhVien.isGioiTinh()){
+    public  void setModel(Student student){
+        txtMaSv.setText(student.getIdStudent());
+        txtTenSv.setText(student.getNameStudent());
+        txtNgaySinh.setText(dateFormat.format(student.getBirthday()));
+        txtDiaChi.setText(student.getAddress());
+        if (student.isSex()){
             rdNam.isSelected();
         }else {
             rdNu.isSelected();
@@ -339,13 +339,13 @@ public class SinhVienDialog extends javax.swing.JFrame {
     public void fillDataTable() {
         DefaultTableModel model = (DefaultTableModel) tbSinhVien.getModel();
         model.setRowCount(0);//clear table
-        for (SinhVien sv : dao.getAllSinhVien()) {
+        for (Student sv : sinhVienList.getAllSinhVien()) {
             Object[] rowData = new Object[5];
-            rowData[0] = sv.getMaSv();
-            rowData[1] = sv.getTenSv();
-            rowData[2] = dateFormat.format(sv.getNgaySinh());
-            rowData[3] = sv.isGioiTinh() ? "Male" : "Female";
-            rowData[4] = sv.getDiaChi();
+            rowData[0] = sv.getIdStudent();
+            rowData[1] = sv.getNameStudent();
+            rowData[2] = dateFormat.format(sv.getBirthday());
+            rowData[3] = sv.isSex() ? "Male" : "Female";
+            rowData[4] = sv.getAddress();
             model.addRow(rowData);
         }
     }
@@ -356,8 +356,8 @@ public class SinhVienDialog extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         if (validateForm()) {
-            SinhVien sv = getModel();
-            if (dao.add(sv) > 0) {
+            Student sv = getModel();
+            if (sinhVienList.add(sv) > 0) {
                 JOptionPane.showMessageDialog(this, "Save Success");
                 fillDataTable();
             }
@@ -368,8 +368,8 @@ public class SinhVienDialog extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         if (validateForm()) {
-               SinhVien sinhVien=getModel();
-               if (dao.updateStudentById(sinhVien)>0){
+               Student student =getModel();
+               if (sinhVienList.updateStudentById(student)>0){
                    JOptionPane.showMessageDialog(this, "update Success");
                    fillDataTable();
                }
@@ -382,7 +382,7 @@ public class SinhVienDialog extends javax.swing.JFrame {
         if (txtMaSv.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this,"Input id.");
         }else {
-            if (dao.deleteSinhVienById(txtMaSv.getText()) > 0) {
+            if (sinhVienList.deleteSinhVienById(txtMaSv.getText()) > 0) {
                 JOptionPane.showMessageDialog(this, "Delete Success");
                 fillDataTable();
             }else{
@@ -394,7 +394,7 @@ public class SinhVienDialog extends javax.swing.JFrame {
     private void tbSinhVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSinhVienMouseClicked
         int id =tbSinhVien.rowAtPoint(evt.getPoint());
         String maSv= tbSinhVien.getValueAt(id,0).toString();
-        SinhVien sv=dao.getSinhVienById(maSv);
+        Student sv= sinhVienList.getSinhVienById(maSv);
         setModel(sv);
 
     }//GEN-LAST:event_tbSinhVienMouseClicked
@@ -433,20 +433,20 @@ public class SinhVienDialog extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SinhVienDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SinhVienDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SinhVienDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SinhVienDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SinhVienDialog().setVisible(true);
+                new StudentForm().setVisible(true);
             }
         });
     }

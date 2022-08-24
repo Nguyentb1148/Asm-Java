@@ -2,19 +2,19 @@ package Model;
 
 public class Grade {
     private int id;
-    private  SinhVien sv;
-    private  double anhVan,tinHoc,Gdtc;
+    private Student sv;
+    private  double math, physical, chemistry;
 
     public Grade() {
 
     }
 
-    public Grade(int id, SinhVien sv, double anhVan, double tinHoc, double gdtc) {
+    public Grade(int id, Student sv, double math, double physical, double chemistry) {
         this.id = id;
         this.sv = sv;
-        this.anhVan = anhVan;
-        this.tinHoc = tinHoc;
-        Gdtc = gdtc;
+        this.math = math;
+        this.physical = physical;
+        this.chemistry = chemistry;
     }
 
     public int getId() {
@@ -25,40 +25,40 @@ public class Grade {
         this.id = id;
     }
 
-    public SinhVien getSv() {
+    public Student getSv() {
         return sv;
     }
 
-    public void setSv(SinhVien sv) {
+    public void setSv(Student sv) {
         this.sv = sv;
     }
 
-    public double getAnhVan() {
-        return anhVan;
+    public double getMath() {
+        return math;
     }
 
-    public void setAnhVan(double anhVan) {
-        this.anhVan = anhVan;
+    public void setMath(double math) {
+        this.math = math;
     }
 
-    public double getTinHoc() {
-        return tinHoc;
+    public double getPhysical() {
+        return physical;
     }
 
-    public void setTinHoc(double tinHoc) {
-        this.tinHoc = tinHoc;
+    public void setPhysical(double physical) {
+        this.physical = physical;
     }
 
-    public double getGdtc() {
-        return Gdtc;
+    public double getChemistry() {
+        return chemistry;
     }
 
-    public void setGdtc(double gdtc) {
-        Gdtc = gdtc;
+    public void setChemistry(double chemistry) {
+        this.chemistry = chemistry;
     }
 
     public double getTbc() {
-        return (getAnhVan()+getTinHoc()+getGdtc())/3;
+        return (getMath()+ getPhysical()+ getChemistry())/3;
     }
     public String getXepLoai(){
         String string="";

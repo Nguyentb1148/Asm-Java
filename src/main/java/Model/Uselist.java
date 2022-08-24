@@ -11,14 +11,14 @@ import java.util.List;
  *
  * @author tranbaonguyen
  */
-public class UserDAO {
-    List<User> ls =new ArrayList<>();
-    public  UserDAO(){
-        ls.add(new User("admin","1212",true));
-        ls.add(new User("admin1","1212",true));
+public class Uselist {
+    List<User> users =new ArrayList<>();
+    public Uselist(){
+        users.add(new User("admin","1212",true));
+        users.add(new User("admin1","1212",true));
     }
     public boolean checkLogin(String userName,String passWord){
-        for(User u:ls){
+        for(User u: users){
             if (u.getUserName().equals(userName)&& u.getPassWord().equals(passWord)){
                 return  true;
             }

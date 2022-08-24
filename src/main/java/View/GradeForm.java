@@ -5,9 +5,9 @@
 package View;
 
 import Model.Grade;
-import Model.GradeDAO;
-import Model.SinhVien;
-import Model.SinhVienDAO;
+import Model.GradeList;
+import Model.Student;
+import Model.SinhVienList;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -16,18 +16,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author tranbaonguyen
  */
-public class QuanLiDiemDiaLog extends javax.swing.JFrame {
+public class GradeForm extends javax.swing.JFrame {
 
-    SinhVienDAO svDao = new SinhVienDAO();
-    GradeDAO dDao = new GradeDAO();
+    SinhVienList sinhVienList = new SinhVienList();
+    GradeList gradeList = new GradeList();
+    int index=0;
 
     /**
      * Creates new form QuanLiDiemDiaLog
      */
-    public QuanLiDiemDiaLog() {
+    public GradeForm() {
         initComponents();
-        txtMaSv.setEditable(false);
-        txtTenSv.setEditable(false);
+        inputIdStudent.setEditable(false);
+        inputNameStudent.setEditable(false);
     }
 
     /**
@@ -41,27 +42,31 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtMaSv = new javax.swing.JTextField();
-        txtTenSv = new javax.swing.JTextField();
+        inputIdStudent = new javax.swing.JTextField();
+        inputNameStudent = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        txtAnhVan = new javax.swing.JTextField();
-        txtTinHoc = new javax.swing.JTextField();
+        inputMath = new javax.swing.JTextField();
+        inputChemistry = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtGdtc = new javax.swing.JTextField();
+        inputPhysical = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbDiem = new javax.swing.JTable();
+        tbGrade = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         btnSearch = new javax.swing.JButton();
-        txtFindMaSv = new javax.swing.JTextField();
+        txtFindIdStudent = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        lbtbc = new javax.swing.JLabel();
+        lbAverage = new javax.swing.JLabel();
+        btnFirst = new javax.swing.JButton();
+        btnPrevious = new javax.swing.JButton();
+        btnNext = new javax.swing.JButton();
+        btnLast = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,13 +78,13 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("ID STUDENT");
 
-        txtMaSv.addActionListener(new java.awt.event.ActionListener() {
+        inputIdStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMaSvActionPerformed(evt);
             }
         });
 
-        txtTenSv.addActionListener(new java.awt.event.ActionListener() {
+        inputNameStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTenSvActionPerformed(evt);
             }
@@ -125,13 +130,13 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("ANH VAN");
 
-        txtAnhVan.addActionListener(new java.awt.event.ActionListener() {
+        inputMath.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAnhVanActionPerformed(evt);
             }
         });
 
-        txtTinHoc.addActionListener(new java.awt.event.ActionListener() {
+        inputChemistry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTinHocActionPerformed(evt);
             }
@@ -141,7 +146,7 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("TIN HOC");
 
-        txtGdtc.addActionListener(new java.awt.event.ActionListener() {
+        inputPhysical.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtGdtcActionPerformed(evt);
             }
@@ -151,7 +156,7 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("GDTC");
 
-        tbDiem.setModel(new javax.swing.table.DefaultTableModel(
+        tbGrade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -170,12 +175,12 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbDiem.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbGrade.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbDiemMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbDiem);
+        jScrollPane1.setViewportView(tbGrade);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -191,7 +196,7 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
             }
         });
 
-        txtFindMaSv.addActionListener(new java.awt.event.ActionListener() {
+        txtFindIdStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFindMaSvActionPerformed(evt);
             }
@@ -205,7 +210,7 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
-                .addComponent(txtFindMaSv, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFindIdStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSearch)
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -216,7 +221,7 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
                 .addContainerGap(28, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(txtFindMaSv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFindIdStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
@@ -225,8 +230,36 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Average");
 
-        lbtbc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbtbc.setText("0.0");
+        lbAverage.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbAverage.setText("0.0");
+
+        btnFirst.setText("First");
+        btnFirst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFirstActionPerformed(evt);
+            }
+        });
+
+        btnPrevious.setText("Previous");
+        btnPrevious.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPreviousActionPerformed(evt);
+            }
+        });
+
+        btnNext.setText("Next");
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextActionPerformed(evt);
+            }
+        });
+
+        btnLast.setText("last");
+        btnLast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLastActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -243,7 +276,7 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtMaSv, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(inputIdStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,15 +286,15 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
                                         .addComponent(jLabel9))
                                     .addGap(38, 38, 38)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtAnhVan, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(inputMath, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(txtGdtc, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtTinHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(lbtbc, javax.swing.GroupLayout.Alignment.LEADING)))
+                                            .addComponent(inputPhysical, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(inputChemistry, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(lbAverage, javax.swing.GroupLayout.Alignment.LEADING)))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel4)
                                     .addGap(18, 18, 18)
-                                    .addComponent(txtTenSv, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(inputNameStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -273,7 +306,16 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(btnFirst)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPrevious)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNext)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLast)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -286,36 +328,41 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtMaSv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputIdStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtTenSv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputNameStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtAnhVan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputMath, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTinHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputChemistry, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
                             .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtGdtc, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputPhysical, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbtbc))
+                    .addComponent(jLabel9)
+                    .addComponent(lbAverage))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnFirst)
+                    .addComponent(btnPrevious)
+                    .addComponent(btnNext)
+                    .addComponent(btnLast))
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -348,83 +395,148 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         if (validateForm()) {
-            Grade g=new Grade();
-            if (dDao.add(g)>0){
+            Grade g = new Grade();
+            if (gradeList.add(g) > 0) {
                 fillDataTable();
             }
-        }else {
-            JOptionPane.showMessageDialog(this," input grade");
+        } else {
+            JOptionPane.showMessageDialog(this, " input grade");
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-
+        if (validateForm()) {
+            if (gradeList.delGrade(txtFindIdStudent.getText()) > 0) {
+                JOptionPane.showMessageDialog(this, "Delete success");
+                fillDataTable();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, " input grade");
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-
+        if (validateForm()) {
+            Grade g = getModel();
+            if (gradeList.updateGrade(g) > 0) {
+                JOptionPane.showMessageDialog(this, "Upgrade success");
+                fillDataTable();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, " input grade");
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        if (txtFindMaSv.getText().isEmpty()) {
+        if (txtFindIdStudent.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Input id student");
         } else {
-            SinhVien sv = svDao.getSinhVienById(txtFindMaSv.getText());
+            Student sv = sinhVienList.getSinhVienById(txtFindIdStudent.getText());
             if (sv != null) {
-                txtMaSv.setText(sv.getMaSv());
-                txtTenSv.setText(sv.getTenSv());
-                txtAnhVan.setText("-1");
-                txtGdtc.setText("-1");
-                txtTinHoc.setText("-1");
-                lbtbc.setText("0.0");
+                Grade d= gradeList.getOneGradeById(sv.getIdStudent());
+                if (d!=null){
+                    setModel(d);
+                }else {
+                    inputIdStudent.setText(sv.getIdStudent());
+                    inputNameStudent.setText(sv.getNameStudent());
+                    inputMath.setText("-1");
+                    inputPhysical.setText("-1");
+                    inputChemistry.setText("-1");
+                    lbAverage.setText("0.0");
+                }
             }
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void tbDiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDiemMouseClicked
-        // TODO add your handling code here:
+        int id = tbGrade.rowAtPoint(evt.getPoint());
+        String masv = tbGrade.getValueAt(id, 0).toString();
+        Grade d = gradeList.getOneGradeById(masv);
+        setModel(d);
     }//GEN-LAST:event_tbDiemMouseClicked
 
+    private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
+        index--;
+        if (index<=0){
+            index=0;
+        }
+        Grade d= gradeList.getPosition(index);
+        setModel(d);
+    }//GEN-LAST:event_btnPreviousActionPerformed
+
+    private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
+        index=0;
+        Grade d= gradeList.getPosition(index);
+        setModel(d);
+    }//GEN-LAST:event_btnFirstActionPerformed
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        index++;
+        if (index>= gradeList.getAllGrade().size()-1){
+            index= gradeList.getAllGrade().size()-1;
+        }
+        Grade d= gradeList.getPosition(index);
+        setModel(d);
+    }//GEN-LAST:event_btnNextActionPerformed
+
+    private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
+        index= gradeList.getAllGrade().size()-1;
+        Grade d= gradeList.getPosition(index);
+        setModel(d);
+    }//GEN-LAST:event_btnLastActionPerformed
+
     public void fillDataTable() {
-        DefaultTableModel model = (DefaultTableModel) tbDiem.getModel();
+        DefaultTableModel model = (DefaultTableModel) tbGrade.getModel();
         model.setRowCount(0);//clear table
-        for (Grade sv : dDao.getAllGrade()) {
+        for (Grade sv : gradeList.getAllGrade()) {
             Object[] rowData = new Object[7];
-            rowData[0] = sv.getSv().getMaSv();
-            rowData[1] = sv.getSv().getTenSv();
-            rowData[2]=sv.getAnhVan();
-            rowData[3]=sv.getTinHoc();
-            rowData[4]=sv.getGdtc();
-            rowData[5]=sv.getTbc();
-            rowData[6]=sv.getXepLoai();
+            rowData[0] = sv.getSv().getIdStudent();
+            rowData[1] = sv.getSv().getNameStudent();
+            rowData[2] = sv.getMath();
+            rowData[3] = sv.getPhysical();
+            rowData[4] = sv.getChemistry();
+            rowData[5] = sv.getTbc();
+            rowData[6] = sv.getXepLoai();
             model.addRow(rowData);
         }
     }
-    public  boolean validateForm(){
-        if (txtMaSv.getText().isEmpty()||txtTenSv.getText().isEmpty()||txtAnhVan.getText().isEmpty()||
-            txtTinHoc.getText().isEmpty()||txtGdtc.getText().isEmpty()){
+
+    public boolean validateForm() {
+        if (inputIdStudent.getText().isEmpty() || inputNameStudent.getText().isEmpty() || inputMath.getText().isEmpty()
+                || inputChemistry.getText().isEmpty() || inputPhysical.getText().isEmpty()) {
             return false;
-        }else {
+        } else {
             try {
-                double av=Double.parseDouble(txtAnhVan.getText());
-                if(av<0||av>10){
-                    return  false;
+                double av = Double.parseDouble(inputMath.getText());
+                if (av < 0 || av > 10) {
+                    return false;
                 }
-            }catch (Exception e){
-                return  false;
+            } catch (Exception e) {
+                return false;
             }
         }
-        return  true;
+        return true;
     }
-    public Grade getModel(){
-        Grade g=new Grade();
+
+    public Grade getModel() {
+        Grade g = new Grade();
         g.setId(0);
-        SinhVien sv=new SinhVien(txtMaSv.getText(),txtTenSv.getText());
+        Student sv = new Student(inputIdStudent.getText(), inputNameStudent.getText());
         g.setSv(sv);
-        g.setAnhVan(Double.parseDouble(txtAnhVan.getText()));
-        g.setTinHoc(Double.parseDouble(txtTinHoc.getText()));
-        g.setGdtc(Double.parseDouble(txtGdtc.getText()));
-        return  g;
+        g.setMath(Double.parseDouble(inputMath.getText()));
+        g.setPhysical(Double.parseDouble(inputChemistry.getText()));
+        g.setChemistry(Double.parseDouble(inputPhysical.getText()));
+        return g;
     }
+
+    public void setModel(Grade g) {
+        inputMath.setText(String.valueOf(g.getMath()));
+        inputChemistry.setText(String.valueOf(g.getPhysical()));
+        inputPhysical.setText(String.valueOf(g.getChemistry()));
+        inputIdStudent.setText(g.getSv().getIdStudent());
+        inputNameStudent.setText(g.getSv().getNameStudent());
+        lbAverage.setText(String.valueOf(g.getChemistry()));
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -442,20 +554,20 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuanLiDiemDiaLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GradeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuanLiDiemDiaLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GradeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuanLiDiemDiaLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GradeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QuanLiDiemDiaLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GradeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuanLiDiemDiaLog().setVisible(true);
+                new GradeForm().setVisible(true);
             }
         });
     }
@@ -463,6 +575,10 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnFirst;
+    private javax.swing.JButton btnLast;
+    private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnPrevious;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
@@ -476,13 +592,13 @@ public class QuanLiDiemDiaLog extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbtbc;
-    private javax.swing.JTable tbDiem;
-    private javax.swing.JTextField txtAnhVan;
-    private javax.swing.JTextField txtFindMaSv;
-    private javax.swing.JTextField txtGdtc;
-    private javax.swing.JTextField txtMaSv;
-    private javax.swing.JTextField txtTenSv;
-    private javax.swing.JTextField txtTinHoc;
+    private javax.swing.JLabel lbAverage;
+    private javax.swing.JTable tbGrade;
+    private javax.swing.JTextField inputMath;
+    private javax.swing.JTextField txtFindIdStudent;
+    private javax.swing.JTextField inputPhysical;
+    private javax.swing.JTextField inputIdStudent;
+    private javax.swing.JTextField inputNameStudent;
+    private javax.swing.JTextField inputChemistry;
     // End of variables declaration//GEN-END:variables
 }
