@@ -57,12 +57,12 @@ public class Grade {
         this.chemistry = chemistry;
     }
 
-    public double getTbc() {
+    public double getAverage() {
         return (getMath()+ getPhysical()+ getChemistry())/3;
     }
-    public String getXepLoai(){
+    public String getRank(){
         String string="";
-        double tbc=getTbc();
+        double tbc= getAverage();
         if (tbc>8){
             string="very good";
         } else if (tbc>=7) {

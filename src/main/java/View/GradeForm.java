@@ -494,8 +494,8 @@ public class GradeForm extends javax.swing.JFrame {
             rowData[2] = sv.getMath();
             rowData[3] = sv.getPhysical();
             rowData[4] = sv.getChemistry();
-            rowData[5] = sv.getTbc();
-            rowData[6] = sv.getXepLoai();
+            rowData[5] = sv.getAverage();
+            rowData[6] = sv.getRank();
             model.addRow(rowData);
         }
     }
@@ -534,7 +534,7 @@ public class GradeForm extends javax.swing.JFrame {
         inputPhysical.setText(String.valueOf(g.getChemistry()));
         inputIdStudent.setText(g.getSv().getIdStudent());
         inputNameStudent.setText(g.getSv().getNameStudent());
-        lbAverage.setText(String.valueOf(g.getChemistry()));
+        lbAverage.setText(String.valueOf(g.getAverage()));
     }
 
     /**

@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
  */
 public class StudentForm extends javax.swing.JFrame {
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     SinhVienList sinhVienList = new SinhVienList();
 
     /**
@@ -40,23 +40,23 @@ public class StudentForm extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtMaSv = new javax.swing.JTextField();
+        inputIdStudent = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        txtTenSv = new javax.swing.JTextField();
-        txtNgaySinh = new javax.swing.JTextField();
+        inputNameStudent = new javax.swing.JTextField();
+        inputBirthday = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        txtDiaChi = new javax.swing.JTextField();
+        inputAddress = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        rdNam = new javax.swing.JRadioButton();
-        rdNu = new javax.swing.JRadioButton();
+        rdMale = new javax.swing.JRadioButton();
+        rdFemale = new javax.swing.JRadioButton();
         btnSave = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbSinhVien = new javax.swing.JTable();
+        tbStudent = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,7 +68,7 @@ public class StudentForm extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("ID STUDENT");
 
-        txtMaSv.addActionListener(new java.awt.event.ActionListener() {
+        inputIdStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMaSvActionPerformed(evt);
             }
@@ -86,13 +86,13 @@ public class StudentForm extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("FULL NAME");
 
-        txtTenSv.addActionListener(new java.awt.event.ActionListener() {
+        inputNameStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTenSvActionPerformed(evt);
             }
         });
 
-        txtNgaySinh.addActionListener(new java.awt.event.ActionListener() {
+        inputBirthday.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNgaySinhActionPerformed(evt);
             }
@@ -120,7 +120,7 @@ public class StudentForm extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("ADDRESS");
 
-        txtDiaChi.addActionListener(new java.awt.event.ActionListener() {
+        inputAddress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDiaChiActionPerformed(evt);
             }
@@ -130,12 +130,12 @@ public class StudentForm extends javax.swing.JFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("SEX");
 
-        buttonGroup1.add(rdNam);
-        rdNam.setSelected(true);
-        rdNam.setText("Male");
+        buttonGroup1.add(rdMale);
+        rdMale.setSelected(true);
+        rdMale.setText("Male");
 
-        buttonGroup1.add(rdNu);
-        rdNu.setText("Female");
+        buttonGroup1.add(rdFemale);
+        rdFemale.setText("Female");
 
         btnSave.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         btnSave.setText("Save");
@@ -161,8 +161,8 @@ public class StudentForm extends javax.swing.JFrame {
             }
         });
 
-        tbSinhVien.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        tbSinhVien.setModel(new javax.swing.table.DefaultTableModel(
+        tbStudent.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tbStudent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -181,14 +181,14 @@ public class StudentForm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbSinhVien.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbStudent.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbSinhVienMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbSinhVien);
-        if (tbSinhVien.getColumnModel().getColumnCount() > 0) {
-            tbSinhVien.getColumnModel().getColumn(4).setResizable(false);
+        jScrollPane1.setViewportView(tbStudent);
+        if (tbStudent.getColumnModel().getColumnCount() > 0) {
+            tbStudent.getColumnModel().getColumn(4).setResizable(false);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -206,15 +206,15 @@ public class StudentForm extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtMaSv, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(inputIdStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(inputBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtTenSv, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(inputNameStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -225,10 +225,10 @@ public class StudentForm extends javax.swing.JFrame {
                                         .addGap(90, 90, 90)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(rdNam)
+                                        .addComponent(rdMale)
                                         .addGap(62, 62, 62)
-                                        .addComponent(rdNu))
-                                    .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(rdFemale))
+                                    .addComponent(inputAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -260,24 +260,24 @@ public class StudentForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(txtMaSv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(inputIdStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(txtTenSv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(inputNameStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(txtNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(inputBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(rdNam)
-                            .addComponent(rdNu))
+                            .addComponent(rdMale)
+                            .addComponent(rdFemale))
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(inputAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -291,53 +291,53 @@ public class StudentForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void reset() {
-        txtMaSv.setText("");
-        txtTenSv.setText("");
-        txtDiaChi.setText("");
-        txtNgaySinh.setText("");
-        rdNam.isSelected();
+        inputIdStudent.setText("");
+        inputNameStudent.setText("");
+        inputAddress.setText("");
+        inputBirthday.setText("");
+        rdMale.isSelected();
     }
 
     public boolean validateForm() {
-        if (txtTenSv.getText().isEmpty() || txtDiaChi.getText().isEmpty() || txtMaSv.getText().isEmpty()
-                || txtNgaySinh.getText().isEmpty()) {
+        if (inputNameStudent.getText().isEmpty() || inputAddress.getText().isEmpty() || inputIdStudent.getText().isEmpty()
+                || inputBirthday.getText().isEmpty()) {
             return false;
         }
         return true;
     }
 
     public Student getModel() {
-        Student sv = new Student();
-        sv.setIdStudent(txtMaSv.getText());
-        sv.setNameStudent(txtTenSv.getText());
-        sv.setAddress(txtDiaChi.getText());
+        Student student = new Student();
+        student.setIdStudent(inputIdStudent.getText());
+        student.setNameStudent(inputNameStudent.getText());
+        student.setAddress(inputAddress.getText());
         boolean sex = false;//female
-        if (rdNam.isSelected()) {
+        if (rdMale.isSelected()) {
             sex = true;
         }
-        sv.setSex(sex);
+        student.setSex(sex);
         try {
-            sv.setBirthday(dateFormat.parse(txtNgaySinh.getText()));
+            student.setBirthday(dateFormat.parse(inputBirthday.getText()));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        return sv;
+        return student;
     }
 
     public  void setModel(Student student){
-        txtMaSv.setText(student.getIdStudent());
-        txtTenSv.setText(student.getNameStudent());
-        txtNgaySinh.setText(dateFormat.format(student.getBirthday()));
-        txtDiaChi.setText(student.getAddress());
+        inputIdStudent.setText(student.getIdStudent());
+        inputNameStudent.setText(student.getNameStudent());
+        inputBirthday.setText(dateFormat.format(student.getBirthday()));
+        inputAddress.setText(student.getAddress());
         if (student.isSex()){
-            rdNam.isSelected();
+            rdMale.isSelected();
         }else {
-            rdNu.isSelected();
+            rdFemale.isSelected();
         }
     }
 
     public void fillDataTable() {
-        DefaultTableModel model = (DefaultTableModel) tbSinhVien.getModel();
+        DefaultTableModel model = (DefaultTableModel) tbStudent.getModel();
         model.setRowCount(0);//clear table
         for (Student sv : sinhVienList.getAllSinhVien()) {
             Object[] rowData = new Object[5];
@@ -356,8 +356,8 @@ public class StudentForm extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         if (validateForm()) {
-            Student sv = getModel();
-            if (sinhVienList.add(sv) > 0) {
+            Student student = getModel();
+            if (sinhVienList.add(student) > 0) {
                 JOptionPane.showMessageDialog(this, "Save Success");
                 fillDataTable();
             }
@@ -379,10 +379,10 @@ public class StudentForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        if (txtMaSv.getText().isEmpty()) {
+        if (inputIdStudent.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this,"Input id.");
         }else {
-            if (sinhVienList.deleteSinhVienById(txtMaSv.getText()) > 0) {
+            if (sinhVienList.deleteSinhVienById(inputIdStudent.getText()) > 0) {
                 JOptionPane.showMessageDialog(this, "Delete Success");
                 fillDataTable();
             }else{
@@ -392,10 +392,10 @@ public class StudentForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tbSinhVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSinhVienMouseClicked
-        int id =tbSinhVien.rowAtPoint(evt.getPoint());
-        String maSv= tbSinhVien.getValueAt(id,0).toString();
-        Student sv= sinhVienList.getSinhVienById(maSv);
-        setModel(sv);
+        int id = tbStudent.rowAtPoint(evt.getPoint());
+        String idStudent= tbStudent.getValueAt(id,0).toString();
+        Student student= sinhVienList.getSinhVienById(idStudent);
+        setModel(student);
 
     }//GEN-LAST:event_tbSinhVienMouseClicked
 
@@ -465,12 +465,12 @@ public class StudentForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton rdNam;
-    private javax.swing.JRadioButton rdNu;
-    private javax.swing.JTable tbSinhVien;
-    private javax.swing.JTextField txtDiaChi;
-    private javax.swing.JTextField txtMaSv;
-    private javax.swing.JTextField txtNgaySinh;
-    private javax.swing.JTextField txtTenSv;
+    private javax.swing.JRadioButton rdMale;
+    private javax.swing.JRadioButton rdFemale;
+    private javax.swing.JTable tbStudent;
+    private javax.swing.JTextField inputAddress;
+    private javax.swing.JTextField inputIdStudent;
+    private javax.swing.JTextField inputBirthday;
+    private javax.swing.JTextField inputNameStudent;
     // End of variables declaration//GEN-END:variables
 }

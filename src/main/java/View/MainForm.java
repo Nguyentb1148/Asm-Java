@@ -90,14 +90,14 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        StudentForm sv=new StudentForm();
-        sv.setVisible(true);
+        StudentForm studentForm=new StudentForm();
+        studentForm.setVisible(true);
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        GradeForm ql=new GradeForm();
-        ql.setVisible(true);
+        GradeForm gradeForm=new GradeForm();
+        gradeForm.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
